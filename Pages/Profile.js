@@ -60,7 +60,7 @@ const Header = () => {
             uri: "https://ttkddongthap.net/tainguyen/images/thanhtan.jpg",
           }}
         />
-        <Text style={styles.txtAvatar}>Dwayne Johnson</Text>
+        <Text style={styles.txtAvatar}>Huỳnh Bùi Thanh Tân</Text>
       </View>
     </View>
   );
@@ -68,7 +68,7 @@ const Header = () => {
 
 const Content = (props) => {
   const {data} = props;
-  
+  //console.log(data);
   return (
 
     <View
@@ -105,6 +105,7 @@ const Content = (props) => {
             />
             <View>
               <Text style={styles.txtUser}>{item.tennv}</Text>
+              <Text style={styles.txtChucdanh}>{item.chucdanh}</Text>
               <Text style={{ color: "gray", fontSize: 10, marginTop: 2 }}>{item.sdt}</Text>
             </View>
           </View>
@@ -149,4 +150,10 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     fontSize: 14,
   },
+  txtChucdanh: {
+    fontWeight:'600',    
+    fontSize: 10,
+    color:"green"
+  },
+
 });
