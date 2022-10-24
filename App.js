@@ -14,6 +14,7 @@ export default function App() {
   return <Profile />;
 }
 
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

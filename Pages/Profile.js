@@ -1,3 +1,4 @@
+import { useState,useEffect} from "react";
 import { StatusBar } from "expo-status-bar";
 import {
   StyleSheet,
@@ -6,15 +7,37 @@ import {
   TouchableOpacity,
   View,
   Image,
+  FlatList,
 } from "react-native";
 import App_Color from "../Themes/Color";
+import APIs from "../Services/APIs";
+
 
 export default function Profile() {
+const [listData,setlistData] = useState();
+
+useEffect(() => {
+  const url = APIs.getUsersAPI;
+  const fetchData = async () => {
+      try {
+          const response = await fetch(url);
+          const json = await response.json();
+          //console.log(json);
+          setlistData(json);
+          //console.log(listData);
+      } catch (error) {
+          console.log("error", error);
+      }
+  };
+  fetchData();
+
+},[]);
+
   return (
     <View style={styles.container}>
       <StatusBar style="light" />
       <Header />
-      <Content />
+      <Content data={listData}/>
     </View>
   );
 }
@@ -43,8 +66,11 @@ const Header = () => {
   );
 };
 
-const Content = () => {
+const Content = (props) => {
+  const {data} = props;
+  
   return (
+
     <View
       style={{
         flex: 2,
@@ -53,104 +79,40 @@ const Content = () => {
         alignItems: "center",
       }}
     >
-      <TouchableOpacity style={{ width: "100%", alignItems: "center" }}>
-        <View
-          style={{
-            flexDirection: "row",
-            width: "90%",
-            paddingHorizontal: 10,
-            paddingVertical: 10,
-            alignItems: "center",
-            marginTop: 10,
-            backgroundColor: "#fff",
-            borderRadius: 10,
-          }}
-        >
-          <Image
-            style={styles.imgUser}
-            source={{
-              uri: "https://ttkddongthap.net/tainguyen/images/duongvanqui.png",
+    <FlatList
+        style={{width:"100%",marginTop:10}}
+        data={data}
+        renderItem={({item})=>{         
+        return(          
+          <TouchableOpacity style={{width: "100%", alignItems: "center"}}>
+          <View
+            style={{
+              flexDirection: "row",
+              width: "90%",
+              paddingHorizontal: 10,
+              paddingVertical: 10,
+              alignItems: "center",
+              marginTop: 10,
+              backgroundColor: "#fff",
+              borderRadius: 10,
             }}
-          />
-          <View>
-            <Text style={styles.txtUser}>Dwayne Johnson</Text>
-            <Text style={{ color: "gray", fontSize: 10, marginTop: 2 }}>
-              nội dung thực hiện
-            </Text>
+          >
+            <Image
+              style={styles.imgUser}
+              source={{
+                uri: item.image,
+              }}
+            />
+            <View>
+              <Text style={styles.txtUser}>{item.tennv}</Text>
+              <Text style={{ color: "gray", fontSize: 10, marginTop: 2 }}>{item.sdt}</Text>
+            </View>
           </View>
-        </View>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={{ width: "100%", alignItems: "center" }}>
-        <View
-          style={{
-            flexDirection: "row",
-            width: "90%",
-            paddingHorizontal: 10,
-            paddingVertical: 10,
-            alignItems: "center",
-            marginTop: 10,
-            backgroundColor: "#fff",
-            borderRadius: 10,
-          }}
-        >
-          <Image
-            style={styles.imgUser}
-            source={{
-              uri: "https://ttkddongthap.net/tainguyen/images/nguyenthanhdut.png",
-            }}
-          />
-          <Text style={styles.txtUser}>Dwayne Johnson</Text>
-        </View>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={{ width: "100%", alignItems: "center" }}>
-        <View
-          style={{
-            flexDirection: "row",
-            width: "90%",
-            paddingHorizontal: 10,
-            paddingVertical: 10,
-            alignItems: "center",
-            marginTop: 10,
-            backgroundColor: "#fff",
-            borderRadius: 10,
-          }}
-        >
-          <Image
-            style={styles.imgUser}
-            source={{
-              uri: "https://ttkddongthap.net/tainguyen/images/tranhuuthuan.png",
-            }}
-          />
-          <Text style={styles.txtUser}>Dwayne Johnson</Text>
-        </View>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={{ flex: 1, width: "100%", alignItems: "center" }}
-      >
-        <View
-          style={{
-            flexDirection: "row",
-            width: "90%",
-            paddingHorizontal: 10,
-            paddingVertical: 10,
-            alignItems: "center",
-            marginTop: 10,
-            backgroundColor: "#fff",
-            borderRadius: 10,
-          }}
-        >
-          <Image
-            style={styles.imgUser}
-            source={{
-              uri: "https://ttkddongthap.net/tainguyen/images/vophuongthanh.png",
-            }}
-          />
-          <Text style={styles.txtUser}>Dwayne Johnson</Text>
-        </View>
-      </TouchableOpacity>
+        </TouchableOpacity>            
+          )
+        }}
+        keyExtractor={item => item.id}
+        />      
     </View>
   );
 };
