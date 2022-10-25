@@ -8,27 +8,28 @@ import {
   View,
   Image,
   FlatList,
-  SafeAreaView,
+  ActivityIndicator
 } from "react-native";
-import Ionicons from "@expo/vector-icons/Ionicons";
-
+import { FontAwesome } from '@expo/vector-icons'; 
 import App_Color from "../Themes/Color";
 import APIs from "../Services/APIs";
 
 export default function Profile() {
   const [listData, setlistData] = useState();
+  const [loading, setLoading] = useState(false);  
 
+  // Lấy danh sách Users
   useEffect(() => {
     const url = APIs.getUsersAPI;
     const fetchData = async () => {
       try {
+        setLoading(true);
         const response = await fetch(url);
-        const json = await response.json();
-        //console.log(json);
-        setlistData(json);
-        //console.log(listData);
+        const json = await response.json();      
+        setlistData(json);        
+        setLoading(false);
       } catch (error) {
-        console.log("error", error);
+        console.log("error", error);        
       }
     };
     fetchData();
@@ -36,12 +37,16 @@ export default function Profile() {
 
   return (
     <View style={styles.container}>
-      <StatusBar style="light" />
-      <Header />
-      <Content data={listData} />
+      <StatusBar style="light" />      
+      <Header/>            
+      {loading?
+          <View style={{flex:1,justifyContent:"center"}}>
+          <ActivityIndicator size="large" />
+          <Text>Đang tải...</Text>  
+          </View>
+       :<Content data={listData}/>}      
     </View>
-  );
-}
+)};
 
 const Header = () => {
   return (
@@ -70,8 +75,9 @@ const Header = () => {
             borderRadius: 10,
             position: "absolute",
           }}
+          placeholder="Tìm nhân viên"
         />
-        <Ionicons
+        <FontAwesome
           name="search"
           size={32}
           style={{
@@ -79,7 +85,7 @@ const Header = () => {
             color: "gray",
             fontSize: 25,
             top: 38,
-            left: 15,
+            left: 15            
           }}
         />
       </View>
@@ -89,7 +95,6 @@ const Header = () => {
 
 const Content = (props) => {
   const { data } = props;
-  //console.log(data);
   return (
     <View
       style={{
@@ -124,11 +129,12 @@ const Content = (props) => {
                   }}
                 />
                 <View>
-                  <Text style={styles.txtUser}>{item.tennv}</Text>
-                  <Text style={styles.txtChucdanh}>{item.chucdanh}</Text>
-                  <Text style={{ color: "gray", fontSize: 10, marginTop: 2 }}>
-                    {item.sdt}
-                  </Text>
+                    <Text style={styles.txtUser}>{item.tennv}</Text>
+                    <Text style={styles.txtChucdanh}>{item.chucdanh}</Text>
+                    <Text style={{ color: "gray", fontSize: 10, marginTop:3}}>0{item.sdt}</Text>
+                </View>
+                <View style={{flex:1, justifyContent:"center",alignItems:"flex-end"}}>
+                    <FontAwesome name="angle-right" size={24} color="gray" style={{marginRight:10}}/>
                 </View>
               </View>
             </TouchableOpacity>

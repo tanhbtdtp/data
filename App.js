@@ -9,11 +9,11 @@ import {
 } from "react-native";
 import Login from "./Pages/Login";
 import Profile from "./Pages/Profile";
+import ProfileDetail from "./Pages/ProfileDetails";
 
 export default function App() {
-  return <Profile />;
+  return <ProfileDetail/>;
 }
-
 
 const styles = StyleSheet.create({
   container: {
