@@ -13,6 +13,7 @@ import {
 import { FontAwesome } from '@expo/vector-icons'; 
 import App_Color from "../Themes/Color";
 import APIs from "../Services/APIs";
+import axios from "axios";
 
 export default function Profile() {
   const [listData, setlistData] = useState();
@@ -21,18 +22,19 @@ export default function Profile() {
   // Lấy danh sách Users
   useEffect(() => {
     const url = APIs.getUsersAPI;
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch(url);
-        const json = await response.json();      
-        setlistData(json);        
-        setLoading(false);
+    setLoading(true);
+    async function getUser() {
+      try 
+      {
+        const response = await axios.get(url);        
+        setlistData(response.data);
       } catch (error) {
-        console.log("error", error);        
+        console.error(error);
+      } finally{
+        setLoading(false);
       }
-    };
-    fetchData();
+    }    
+    getUser();
   }, []);
 
   return (

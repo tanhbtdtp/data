@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -7,57 +7,79 @@ import {
   TouchableOpacity,
   View,
   Image,
-  ActivityIndicator
+  ActivityIndicator,
 } from "react-native";
+import axios from "axios";
+
 
 import APIs from "../Services/APIs";
 import App_Color from "../Themes/Color";
 import Loading from "../Components/Loading";
 
 export default function Login() {
-const [username,setUsername] =useState("");
-const [password,setPassword] =useState("");
-const [isLoading,setisLoading] =useState("");
-const [result,setResult] =useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoading, setisLoading] = useState("");
+  const [result, setResult] = useState("");
 
 
-const handleSubmit = async () => { 
-  
-    try {      
-      if(username==="" || password==="" || isLoading)  {return;}
-      setisLoading(true);
-      const url = APIs.getLogin + `&username=${username}&password=${password}`;     
-      const response = await fetch(url);
-      const json = await response.json();       
-      setResult(json);                    
-      setisLoading(false);       
-      console.log(username,password,url);
-      console.log(result);
-    } catch (error) {
-      console.log("error", error);        
-    }             
-  
-};
-
-
-
+  const handleSubmit = () => {
+  if(username.length===0 || password.length===0) {return;}
+    setisLoading(true);    
+    const url = APIs.getLogin;
+    axios.get(url,{
+      params: {
+        username: username,
+        password:password
+      }
+    })
+    .then((response) => {
+      setResult(response.data);        
+      //console.log(response.data);
+    })
+    .catch((error) =>{
+      console.log(error);
+    })
+    .then(function () {
+      // luôn luôn được thực thi     
+        setisLoading(false);        
+    });     
+  };
 
 
   return (
     <View style={styles.container}>
-      <StatusBar style="light" />             
-      
+      <StatusBar style="light" />
+
       <Header />
-      <Sunmit data={[username,setUsername,password,setPassword,handleSubmit,isLoading]} />
+      <Sunmit
+        data={[
+          username,
+          setUsername,
+          password,
+          setPassword,
+          handleSubmit,
+          isLoading,
+        ]}
+      />
       <Footer />
-      {isLoading?
-             <>
-             <View style={{flex:1,width:"100%",height:"100%",position:"absolute", backgroundColor:'#fff',opacity:0.5}}>
-                 <Loading Text="Đang tải"/>
-            </View>
-            </>
-            :null}
-     </View>
+      {isLoading ? (
+        <>
+          <View
+            style={{
+              flex: 1,
+              width: "100%",
+              height: "100%",
+              position: "absolute",
+              backgroundColor: "#fff",
+              opacity: 0.5,
+            }}
+          >
+            <Loading Text="Đang tải" />
+          </View>
+        </>
+      ) : null}
+    </View>
   );
 }
 
@@ -85,29 +107,33 @@ const Header = () => {
   );
 };
 const Sunmit = (props) => {
-const [username,setUsername,password,setPassword,handleSubmit] =props.data;
+  const [username, setUsername, password, setPassword, handleSubmit] =
+    props.data;
 
-  return (       
+  return (
     <View style={{ flex: 2, backgroundColor: "#ffff", width: "100%" }}>
       <Text
         style={{
           fontSize: 20,
           fontWeight: "600",
           marginTop: 10,
-          marginLeft: 25,          
-        }}        
-      >      
+          marginLeft: 25,
+        }}
+      >
         Welcome!
-      </Text>     
-      <TextInput style={styles.txtTaiKhoan} placeholder="Tài khoản" value={username} 
-                  onChangeText={text => setUsername(text)}
+      </Text>
+      <TextInput
+        style={styles.txtTaiKhoan}
+        placeholder="Tài khoản"
+        value={username}
+        onChangeText={(text) => setUsername(text)}
       ></TextInput>
       <TextInput
         style={styles.txtMatKhau}
         placeholder="Mật khẩu"
         secureTextEntry={true}
         value={password}
-        onChangeText={text => setPassword(text)}
+        onChangeText={(text) => setPassword(text)}
       ></TextInput>
       <TouchableOpacity
         style={{
@@ -118,10 +144,9 @@ const [username,setUsername,password,setPassword,handleSubmit] =props.data;
           borderRadius: 20,
           backgroundColor: "#FF5C2C",
           justifyContent: "center",
-          alignItems: "center" 
-           
+          alignItems: "center",
         }}
-        onPress ={()=>handleSubmit()}        
+        onPress={() => handleSubmit()}
       >
         <Text style={{ color: "#fff", fontWeight: "600" }}>Đăng nhập</Text>
       </TouchableOpacity>

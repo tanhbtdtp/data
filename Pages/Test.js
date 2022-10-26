@@ -27,13 +27,13 @@ const handleClick = () =>{
          fetch(url)  
          .then(res => res.json())
          .then(resJson => {
+
             console.log(resJson);
-           setResult(resJson);
+            setResult(resJson);
+
          })
-
-
-
 }
+
     return(
         <View style={styles.container}>
             <TextInput style={{height:50,width:"100%",backgroundColor:'gray'}}
