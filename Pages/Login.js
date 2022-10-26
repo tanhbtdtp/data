@@ -1,4 +1,5 @@
 import { StatusBar } from "expo-status-bar";
+import { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -6,18 +7,57 @@ import {
   TouchableOpacity,
   View,
   Image,
+  ActivityIndicator
 } from "react-native";
 
+import APIs from "../Services/APIs";
 import App_Color from "../Themes/Color";
+import Loading from "../Components/Loading";
 
 export default function Login() {
+const [username,setUsername] =useState("");
+const [password,setPassword] =useState("");
+const [isLoading,setisLoading] =useState("");
+const [result,setResult] =useState("");
+
+
+function handleSubmit(){ 
+
+const  fetchLogin = async () =>{
+  try {      
+    if(username==="" || password==="" || isLoading)  {return;}
+    setisLoading(true);
+    const url = APIs.getLogin + `&username=${username}&password=${password}`;     
+    const response = await fetch(url);
+    const json = await response.json();        
+
+    setResult(json);              
+
+    console.log(username,password,result,url);
+    
+  } catch (error) {
+    console.log("error", error);        
+  }  
+  setisLoading(false); 
+}
+fetchLogin();   
+};
+
   return (
     <View style={styles.container}>
-      <StatusBar style="light" />
+      <StatusBar style="light" />             
+      
       <Header />
-      <Sunmit />
+      <Sunmit data={[username,setUsername,password,setPassword,handleSubmit,isLoading]} />
       <Footer />
-    </View>
+      {isLoading?
+             <>
+             <View style={{flex:1,width:"100%",height:"100%",position:"absolute", backgroundColor:'#fff',opacity:0.5}}>
+                 <Loading Text="Đang tải"/>
+            </View>
+            </>
+            :null}
+     </View>
   );
 }
 
@@ -44,25 +84,30 @@ const Header = () => {
     </View>
   );
 };
-const Sunmit = () => {
-  return (
+const Sunmit = (props) => {
+const [username,setUsername,password,setPassword,handleSubmit] =props.data;
+
+  return (       
     <View style={{ flex: 2, backgroundColor: "#ffff", width: "100%" }}>
       <Text
         style={{
           fontSize: 20,
           fontWeight: "600",
           marginTop: 10,
-          marginLeft: 15,
-        }}
-      >
-        {" "}
+          marginLeft: 25,          
+        }}        
+      >      
         Welcome!
-      </Text>
-      <TextInput style={styles.txtTaiKhoan} placeholder="Tài khoản"></TextInput>
+      </Text>     
+      <TextInput style={styles.txtTaiKhoan} placeholder="Tài khoản" value={username} 
+                  onChangeText={(text) => setUsername(text)}
+      ></TextInput>
       <TextInput
         style={styles.txtMatKhau}
         placeholder="Mật khẩu"
         secureTextEntry={true}
+        value={password}
+        onChangeText={(text) => setPassword(text)}
       ></TextInput>
       <TouchableOpacity
         style={{
@@ -73,11 +118,14 @@ const Sunmit = () => {
           borderRadius: 20,
           backgroundColor: "#FF5C2C",
           justifyContent: "center",
-          alignItems: "center",
+          alignItems: "center" 
+           
         }}
+        onPress ={()=>handleSubmit()}        
       >
         <Text style={{ color: "#fff", fontWeight: "600" }}>Đăng nhập</Text>
       </TouchableOpacity>
+
       <TouchableOpacity
         style={{
           marginTop: 40,
