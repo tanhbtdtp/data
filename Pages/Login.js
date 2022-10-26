@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -21,27 +21,27 @@ const [isLoading,setisLoading] =useState("");
 const [result,setResult] =useState("");
 
 
-function handleSubmit(){ 
-
-const  fetchLogin = async () =>{
-  try {      
-    if(username==="" || password==="" || isLoading)  {return;}
-    setisLoading(true);
-    const url = APIs.getLogin + `&username=${username}&password=${password}`;     
-    const response = await fetch(url);
-    const json = await response.json();        
-
-    setResult(json);              
-
-    console.log(username,password,result,url);
-    
-  } catch (error) {
-    console.log("error", error);        
-  }  
-  setisLoading(false); 
-}
-fetchLogin();   
+const handleSubmit = async () => { 
+  
+    try {      
+      if(username==="" || password==="" || isLoading)  {return;}
+      setisLoading(true);
+      const url = APIs.getLogin + `&username=${username}&password=${password}`;     
+      const response = await fetch(url);
+      const json = await response.json();       
+      setResult(json);                    
+      setisLoading(false);       
+      console.log(username,password,url);
+      console.log(result);
+    } catch (error) {
+      console.log("error", error);        
+    }             
+  
 };
+
+
+
+
 
   return (
     <View style={styles.container}>
@@ -100,14 +100,14 @@ const [username,setUsername,password,setPassword,handleSubmit] =props.data;
         Welcome!
       </Text>     
       <TextInput style={styles.txtTaiKhoan} placeholder="Tài khoản" value={username} 
-                  onChangeText={(text) => setUsername(text)}
+                  onChangeText={text => setUsername(text)}
       ></TextInput>
       <TextInput
         style={styles.txtMatKhau}
         placeholder="Mật khẩu"
         secureTextEntry={true}
         value={password}
-        onChangeText={(text) => setPassword(text)}
+        onChangeText={text => setPassword(text)}
       ></TextInput>
       <TouchableOpacity
         style={{

@@ -6,9 +6,10 @@ import Login from "./Pages/Login";
 import Profile from "./Pages/Profile";
 import ProfileDetail from "./Pages/ProfileDetails";
 import Loading from "./Components/Loading";
+import Test from "./Pages/Test";
 
 export default function App() {
-  return <Login/>;
+  return <Test/>;
 }
 
 const styles = StyleSheet.create({
