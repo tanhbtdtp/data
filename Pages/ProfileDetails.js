@@ -15,6 +15,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import App_Color from "../Themes/Color";
 import APIs from "../Services/APIs";
 
+
 export default function ProfileDetail() {
   return (
     <View style={styles.container}>
@@ -28,43 +29,29 @@ export default function ProfileDetail() {
 }
 
 const Header = () => {
+
+const user = {
+    tennv:"Huỳnh Bùi Thanh Tân",
+    manv :"VNP0028522",
+    chucdanh :"Nhân viên địa bàn",
+    img :"https://ttkddongthap.net/tainguyen/images/919501318.jpg",
+}
   return (
-    <View
-      style={{
-        height: 150,
-        backgroundColor: App_Color.MauNen,
-        width: "100%",
-        alignItems: "center",
-      }}
-    >
-      <View
-        style={{
-          flex: 1,
-          width: "90%",
-          justifyContent: "center",
-          marginTop: 50,
-        }}
-      >
+    <View style={styles.headerContainer}>
+      <View  style={styles.headerContainer1}>
         <View
-          style={{
-            flexDirection: "row",
-            width: "100%",
-            paddingHorizontal: 10,
-            paddingVertical: 10,
-            alignItems: "center",
-            borderRadius: 10,
-          }}
+          style={styles.headerContent}
         >
           <Image
             style={styles.imgUser}
             source={{
-              uri: "https://ttkddongthap.net/tainguyen/images/919501318.jpg",
+              uri: user.img,
             }}
           />
           <View>
-            <Text style={styles.txtUser}>Huỳnh Bùi Thanh Tân</Text>
-            <Text style={styles.txtChucdanh}>Nhân viên địa bàn</Text>
-            <Text style={styles.txtManv}>VNP00001</Text>
+            <Text style={styles.txtUser}>{user.tennv}</Text>
+            <Text style={styles.txtChucdanh}>{user.chucdanh}</Text>
+            <Text style={styles.txtManv}>{user.manv}</Text>
           </View>
         </View>
       </View>
@@ -74,44 +61,11 @@ const Header = () => {
 
 const Banner = () => {
   return (
-    <View
-      style={{
-        height: 160,
-        backgroundColor: "#fff",
-        width: "95%",
-        marginTop: 10,
-        marginBottom: 10,
-        borderRadius: 15,
-      }}
-    >
-      <Text style={{ marginTop: 15, marginLeft: 15, color: "gray" }}>
-        Tiền lương
-      </Text>
-      <Text
-        style={{
-          marginTop: 5,
-          marginLeft: 15,
-          fontSize: 20,
-          fontWeight: "bold",
-          color: "green",
-        }}
-      >
-        3.240.000đ
-      </Text>
-      <Text style={{ marginTop: 25, marginLeft: 15, color: "gray" }}>
-        Khen thưởng dự kiến
-      </Text>
-      <Text
-        style={{
-          marginTop: 5,
-          marginLeft: 15,
-          fontSize: 15,
-          fontWeight: "600",
-          color: "orange",
-        }}
-      >
-        250.000đ
-      </Text>
+    <View style={styles.bannerContainer}>
+      <Text style={styles.txtTienluong}>Tiền lương</Text>
+      <Text style={styles.txtTienluong1}>3.240.000đ</Text>
+      <Text style={styles.txtKhenthuong}>Khen thưởng dự kiến</Text>
+      <Text style={styles.txtKhenthuong1}>250.000đ</Text>
     </View>
   );
 };
@@ -121,8 +75,7 @@ const BSC = () => {
     {
       title: "Tỉ lệ nợ",
       tile: "90%",
-      doanhthu: "4.305.541",
-      img: "https://ttkddongthap.net/tainguyen/images/bsc_img/money.png",
+      doanhthu: "4.305.541",     
       icon: "money",
     },
     {
@@ -158,16 +111,8 @@ const BSC = () => {
   ];
 
   return (
-    <View
-      style={{
-        height: 200,
-        backgroundColor: "#fff",
-        width: "95%",
-        marginBottom: 10,
-        borderRadius: 15,
-      }}
-    >
-      <Text style={{ marginTop: 15, marginLeft: 15, fontWeight: "600" }}>
+    <View style={styles.bscContainer}>
+      <Text style={styles.txtdanhmucBSC}>
         Danh mục BSC
       </Text>
       <FlatList
@@ -178,17 +123,7 @@ const BSC = () => {
         renderItem={({ item }) => {
           return (
             <TouchableOpacity>
-              <View
-                style={{
-                  height: 140,
-                  backgroundColor: App_Color.MauNen_Dark,
-                  width: 160,
-                  marginTop: 10,
-                  marginRight: 10,
-                  marginBottom: 10,
-                  borderRadius: 10,
-                }}
-              >
+              <View   style={styles.bsclistContainer}>
                 <View style={{ flexDirection: "row" }}>
                   <FontAwesome
                     name={item.icon}
@@ -197,40 +132,17 @@ const BSC = () => {
                     style={{ marginTop: 15, marginLeft: 10 }}
                   />
                   <View>
-                    <Text
-                      style={{ marginTop: 10, marginLeft: 15, color: "gray" }}
-                    >
+                    <Text style={styles.bsctxtTenKPI}>
                       {item.title}
                     </Text>
-                    <Text
-                      style={{
-                        marginTop: 5,
-                        marginLeft: 15,
-                        fontSize: 20,
-                        fontWeight: "bold",
-                        color: "green",
-                      }}
-                    >
-                      {item.tile}
-                    </Text>
+                    <Text style={styles.bsctxtTile}>{item.tile}</Text>
                   </View>
                 </View>
                 <View>
-                  <Text
-                    style={{ marginTop: 25, marginLeft: 15, color: "gray" }}
-                  >
+                  <Text style={{ marginTop: 25, marginLeft: 15, color: "gray" }}                  >
                     Hoàn thành
                   </Text>
-                  <Text
-                    style={{
-                      marginTop: 5,
-                      marginLeft: 15,
-                      fontSize: 15,
-                      fontWeight: "600",
-                    }}
-                  >
-                    {item.doanhthu}đ
-                  </Text>
+                  <Text style={styles.bsctxtDoanhthu}>{item.doanhthu}đ</Text>
                 </View>
               </View>
             </TouchableOpacity>
@@ -247,43 +159,51 @@ const KPI = () => {
       title: "F11_2",
       tile: "90%",
       tenkpi: "Doanh thu trả trước (TKC-207) tăng mới",
+      icon : "dollar"
     },
     {
       title: "S11_2",
       tile: "40%",
       tenkpi: "Thuê bao di động data trả trước phát triển mới",
+      icon : "list-ol"
     },
     {
       title: "S12_2",
       tile: "22%",
       tenkpi: "Thuê bao di động trả sau phát triển mới",
+      icon : "list-ol"
     },
     {
       title: "S13_2",
       tile: "50%",
       tenkpi: "Thuê bao FiberVNN phát triển mới",
+      icon : "list-ol"
     },
     {
       title: "S14_2",
       tile: "50%",
       tenkpi: "Thuê bao MyTV phát triển mới",
+      icon : "list-ol"
     },
     {
       title: "S42_1",
       tile: "88%",
       tenkpi: "Số lượng CTV XHH",
+      icon : "list-ol"
     },
 
     {
       title: "S43_8",
       tile: "88%",
       tenkpi: "Số lượng thuê bao cài đặt App My VNPT mới",
+      icon : "list-ol"
     },
 
     {
       title: "I171",
       tile: "88%",
       tenkpi: "Nhiệm vụ Lãnh đạo phân công",
+      icon : "percent"
     },
   ];
 
@@ -317,16 +237,11 @@ const KPI = () => {
                 }}
               >
                 <View style={{ flexDirection: "row" }}>
-                  <Image
-                    style={{
-                      height: 35,
-                      width: 30,
-                      marginTop: 20,
-                      marginLeft: 15,
-                    }}
-                    source={{
-                      uri: "https://ttkddongthap.net/tainguyen/images/nguyenthanhnhan.png",
-                    }}
+                <FontAwesome
+                    name={item.icon}
+                    size={30}
+                    color="gray"
+                    style={{ marginTop: 15, marginLeft: 10 }}
                   />
                   <View>
                     <Text
@@ -389,6 +304,7 @@ const KPI = () => {
   );
 };
 
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -405,18 +321,114 @@ const styles = StyleSheet.create({
   txtUser: {
     fontWeight: "600",
     color: "#fff",
-    fontSize: 14,
+    fontSize: 16,
   },
   txtChucdanh: {
     fontWeight: "600",
-    fontSize: 10,
+    fontSize: 14,
     color: "#c9c9c9",
     marginTop: 3,
   },
   txtManv: {
     fontWeight: "600",
-    fontSize: 10,
+    fontSize: 14,
     color: "#fff",
     marginTop: 3,
   },
+
+  headerContainer:{
+    height: 150,
+    backgroundColor: App_Color.MauNen,
+    width: "100%",
+    alignItems: "center",
+  },
+
+  headerContainer1:{
+    flex: 1,
+    width: "90%",
+    justifyContent: "center",
+    marginTop: 50,
+  },
+
+  headerContent:{
+    flexDirection: "row",
+    width: "100%",
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    alignItems: "center",
+    borderRadius: 10,
+  },
+
+  bannerContainer:{
+    height: 160,
+    backgroundColor: "#fff",
+    width: "95%",
+    marginTop: 10,
+    marginBottom: 10,
+    borderRadius: 15,
+  },
+
+  txtTienluong:{
+     marginTop: 15,
+     marginLeft: 15, 
+     color: "gray" 
+  },
+
+  txtTienluong1:{
+    marginTop: 5,
+    marginLeft: 15,
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "green",
+  },
+  txtKhenthuong:{marginTop: 25, marginLeft: 15, color: "gray"},
+  txtKhenthuong1:{
+    marginTop: 5,
+    marginLeft: 15,
+    fontSize: 15,
+    fontWeight: "600",
+    color: "orange",
+  },
+  
+  bscContainer:
+  {
+    height: 200,
+    backgroundColor: "#fff",
+    width: "95%",
+    marginBottom: 10,
+    borderRadius: 15,
+  },
+
+  txtdanhmucBSC: 
+    { marginTop: 15, marginLeft: 15, fontWeight: "600" },
+
+  bsclistContainer :
+    {
+      height: 140,
+      backgroundColor: App_Color.MauNen_Dark,
+      width: 160,
+      marginTop: 10,
+      marginRight: 10,
+      marginBottom: 10,
+      borderRadius: 10,
+    },
+    bsctxtTile:{
+      marginTop: 5,
+      marginLeft: 15,
+      fontSize: 20,
+      fontWeight: "bold",
+      color: "green",
+    },
+    bsctxtTenKPI:
+      {marginTop: 10, marginLeft: 15, color:"gray"},
+
+    bsctxtDoanhthu:
+    {
+      marginTop: 5,
+      marginLeft: 15,
+      fontSize: 15,
+      fontWeight: "600",
+    },
+    
+
 });
