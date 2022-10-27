@@ -9,19 +9,18 @@ import {
   Image,
   ActivityIndicator,
 } from "react-native";
+
 import axios from "axios";
-
-
 import APIs from "../Services/APIs";
 import App_Color from "../Themes/Color";
 import Loading from "../Components/Loading";
+
 
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setisLoading] = useState("");
   const [result, setResult] = useState("");
-
 
   const handleSubmit = () => {
   if(username.length===0 || password.length===0) {return;}
@@ -35,7 +34,7 @@ export default function Login() {
     })
     .then((response) => {
       setResult(response.data);        
-      //console.log(response.data);
+      console.log(response.data);
     })
     .catch((error) =>{
       console.log(error);
@@ -49,8 +48,7 @@ export default function Login() {
 
   return (
     <View style={styles.container}>
-      <StatusBar style="light" />
-
+      <StatusBar style="light"/>
       <Header />
       <Sunmit
         data={[
