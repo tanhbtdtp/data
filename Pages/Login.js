@@ -8,21 +8,40 @@ import {
   View,
   Image,
   ActivityIndicator,
+  Alert,
 } from "react-native";
 
 import axios from "axios";
 import APIs from "../Services/APIs";
 import App_Color from "../Themes/Color";
 import Loading from "../Components/Loading";
+import { useNavigation } from "@react-navigation/native";
+
+
+
 
 
 export default function Login() {
+  // data
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setisLoading] = useState("");
-  const [result, setResult] = useState("");
 
-  const handleSubmit = () => {
+  const [userinfo, setUserinfo] = useState({});
+  
+
+  // chuyển trang
+  const navigation = useNavigation();
+
+  const userChange = (text) =>{
+        setUsername(text);        
+  }
+
+  const passwordChange = (text) =>{
+      setPassword(text);      
+  }
+
+  const handleSubmit = () => {   
   if(username.length===0 || password.length===0) {return;}
     setisLoading(true);    
     const url = APIs.getLogin;
@@ -33,10 +52,19 @@ export default function Login() {
       }
     })
     .then((response) => {
-      setResult(response.data);        
-      console.log(response.data);
+      setUserinfo(response.data);
+      //console.log(response.data);
+      if(response.data[0].status==="Success")  
+      {        
+          navigation.navigate('Profile');
+
+      } else {
+        Alert.alert('Tài khoản hoặc mật khẩu không đúng.');
+      }   
+
     })
     .catch((error) =>{
+      // luôn luôn được khi lỗi
       console.log(error);
     })
     .then(function () {
@@ -44,6 +72,10 @@ export default function Login() {
         setisLoading(false);        
     });     
   };
+
+  const Fail = () =>{  
+     Alert.alert("Tài khoản hoặc mật khẩu không đúng");
+  }
 
 
   return (
@@ -53,13 +85,14 @@ export default function Login() {
       <Sunmit
         data={[
           username,
-          setUsername,
+          userChange,
           password,
-          setPassword,
+          passwordChange,
           handleSubmit,
-          isLoading,
+          isLoading          
         ]}
       />
+     
       <Footer />
       {isLoading ? (
         <>
@@ -105,9 +138,9 @@ const Header = () => {
   );
 };
 const Sunmit = (props) => {
-  const [username, setUsername, password, setPassword, handleSubmit] =
-    props.data;
-
+  const [username, userChange, password, passwordChange, handleSubmit] =
+    props.data;       
+  
   return (
     <View style={{ flex: 2, backgroundColor: "#ffff", width: "100%" }}>
       <Text
@@ -124,14 +157,14 @@ const Sunmit = (props) => {
         style={styles.txtTaiKhoan}
         placeholder="Tài khoản"
         value={username}
-        onChangeText={(text) => setUsername(text)}
+        onChangeText={(text) => userChange(text)}
       ></TextInput>
       <TextInput
         style={styles.txtMatKhau}
         placeholder="Mật khẩu"
         secureTextEntry={true}
         value={password}
-        onChangeText={(text) => setPassword(text)}
+        onChangeText={(text) => passwordChange(text)}
       ></TextInput>
       <TouchableOpacity
         style={{
@@ -157,7 +190,8 @@ const Sunmit = (props) => {
           justifyContent: "center",
           alignItems: "center",
         }}
-      >
+      >     
+
         <Text style={{ color: "#FF5C2C", fontWeight: "600" }}>
           Quên mật khẩu?
         </Text>

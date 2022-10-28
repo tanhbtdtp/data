@@ -1,6 +1,8 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet } from "react-native";
 
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import Login from "./Pages/Login";
 import Profile from "./Pages/Profile";
@@ -11,14 +13,28 @@ import KpiDetails from "./Pages/KpiDetails";
 
 
 // Thư viện sử dụng
+// yann add expo
 // yarn add axios
 
+// Navigation:
+// yarn add @react-navigation/native
+// npx expo install react-native-screens react-native-safe-area-context
+// Stack :
+// yarn add @react-navigation/native-stack
 
 
+const Stack = createNativeStackNavigator();
 export default function App() {
-  return <KpiDetails/>;
-}
-
+return(
+<NavigationContainer>
+      <Stack.Navigator initialRouteName="Login" screenOptions={{headerShown: false}}>
+        <Stack.Screen name="Login" component= {Login}/>
+        <Stack.Screen name="Profile" component= {Profile}/>
+        <Stack.Screen name="ProfileDetail" component= {ProfileDetail}/>
+        <Stack.Screen name="KpiDetails" component= {KpiDetails}/>
+      </Stack.Navigator>
+</NavigationContainer>
+)}
 const styles = StyleSheet.create({
   container: {
     flex: 1,

@@ -14,7 +14,7 @@ import APIs from "../Services/APIs";
 import App_Color from "../Themes/Color";
 import Loading from "../Components/Loading";
 
-export default function Test() {
+export default function Test(navigation) {
 
     const [username,setUsername] =useState("");
     const [password,setPassword] =useState("");

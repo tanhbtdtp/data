@@ -1,5 +1,5 @@
 
-const url ='https://script.google.com/macros/s/AKfycbw5WN-93hPGGzZ7pA5YVjEODdRKAyatnCZ9EB2f_CCBWQzSlfaG13G5L0bQ6ihaxPm2/exec?';
+const url ='https://script.google.com/macros/s/AKfycbwsOSp7za7Znet8GRI459Cf1TTNUfUFz7XNjIpqviEoxZWpURGvqooe5aMSgdtu60Hi/exec?';
 
 const APIs = {
   getUsersAPI:
