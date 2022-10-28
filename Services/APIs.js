@@ -5,8 +5,12 @@ const APIs = {
   getUsersAPI:
      url + "action=getUsers&top=20&username=",
   getLogin:
-     url + "action=getLogin" , 
+     url + "action=getLogin", 
+   
+   err_Login : "Tài khoản mật khẩu không đúng"
 };
+
+
 
 export default APIs;
 

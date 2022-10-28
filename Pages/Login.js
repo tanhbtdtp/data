@@ -26,19 +26,18 @@ export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setisLoading] = useState("");
-
-  const [userinfo, setUserinfo] = useState({});
+  const [userinfo, setUserinfo] = useState([]); 
   
 
   // chuyển trang
   const navigation = useNavigation();
 
   const userChange = (text) =>{
-        setUsername(text);        
+        setUsername(text);              
   }
 
   const passwordChange = (text) =>{
-      setPassword(text);      
+        setPassword(text);       
   }
 
   const handleSubmit = () => {   
@@ -52,16 +51,17 @@ export default function Login() {
       }
     })
     .then((response) => {
+
       setUserinfo(response.data);
-      //console.log(response.data);
+
       if(response.data[0].status==="Success")  
       {        
-          navigation.navigate('Profile');
+          navigation.navigate('Home');
 
       } else {
-        Alert.alert('Tài khoản hoặc mật khẩu không đúng.');
-      }   
+        Alert.alert(APIs.err_Login);
 
+      }   
     })
     .catch((error) =>{
       // luôn luôn được khi lỗi
@@ -71,11 +71,7 @@ export default function Login() {
       // luôn luôn được thực thi     
         setisLoading(false);        
     });     
-  };
-
-  const Fail = () =>{  
-     Alert.alert("Tài khoản hoặc mật khẩu không đúng");
-  }
+  };  
 
 
   return (
@@ -89,7 +85,8 @@ export default function Login() {
           password,
           passwordChange,
           handleSubmit,
-          isLoading          
+          isLoading
+          
         ]}
       />
      
@@ -137,19 +134,14 @@ const Header = () => {
     </View>
   );
 };
+
+
 const Sunmit = (props) => {
-  const [username, userChange, password, passwordChange, handleSubmit] =
-    props.data;       
-  
+  const [username, userChange, password, passwordChange, handleSubmit] = props.data;    
   return (
-    <View style={{ flex: 2, backgroundColor: "#ffff", width: "100%" }}>
+    <View style={styles.submitContainer}>
       <Text
-        style={{
-          fontSize: 20,
-          fontWeight: "600",
-          marginTop: 10,
-          marginLeft: 25,
-        }}
+        style={styles.txtWelcome}
       >
         Welcome!
       </Text>
@@ -167,16 +159,7 @@ const Sunmit = (props) => {
         onChangeText={(text) => passwordChange(text)}
       ></TextInput>
       <TouchableOpacity
-        style={{
-          height: 50,
-          width: "90%",
-          marginTop: 20,
-          alignSelf: "center",
-          borderRadius: 20,
-          backgroundColor: "#FF5C2C",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
+        style={styles.btnLogin}
         onPress={() => handleSubmit()}
       >
         <Text style={{ color: "#fff", fontWeight: "600" }}>Đăng nhập</Text>
@@ -213,7 +196,7 @@ const Sunmit = (props) => {
               uri: "https://www.clipartmax.com/png/small/105-1055517_google-chrome-icon-google-logo-round-png.png",
             }}
           />
-          <Text style={{ color: "#FF5C2C", fontWeight: "600" }}>Google</Text>
+          <Text style={styles.txtSocial}>Google</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.btnSocial}>
@@ -223,24 +206,17 @@ const Sunmit = (props) => {
               uri: "https://www.clipartmax.com/png/small/17-171363_facebook-logo-png-%5Bnew-2015%5D-vector-eps-free-download-transparent-background-facebook.png",
             }}
           />
-          <Text style={{ color: "#5E7CF4", fontWeight: "600" }}>facebook</Text>
+          <Text style={styles.txtSocial}>facebook</Text>
         </TouchableOpacity>
       </View>
     </View>
   );
 };
+
+
 const Footer = () => {
   return (
-    <View
-      style={{
-        flex: 1,
-        flexDirection: "row",
-        backgroundColor: "#FF5C2C",
-        width: "100%",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
+    <View style={styles.footerContainer}>
       <Text style={{ color: "#ffff" }}>Chưa có tài khoản?</Text>
       <TouchableOpacity>
         <Text style={{ color: "#ffff", fontWeight: "600", marginLeft: 10 }}>
@@ -295,4 +271,47 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 10,
   },
+
+btnLogin :
+  {
+    height: 50,
+    width: "90%",
+    marginTop: 20,
+    alignSelf: "center",
+    borderRadius: 20,
+    backgroundColor: "#FF5C2C",
+    justifyContent: "center",
+    alignItems: "center",
+    opacity:1    
+},
+
+footerContainer:{ 
+    flex: 1,
+    flexDirection: "row",
+    backgroundColor: "#FF5C2C",
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center", 
+},
+
+txtSocial: 
+{ 
+   color: "#5E7CF4",
+   fontWeight: "600",    
+},
+
+submitContainer:{
+  flex: 2, 
+  backgroundColor: "#ffff",
+  width: "100%"
+},
+
+txtWelcome:{
+    fontSize: 20,
+    fontWeight: "600",
+    marginTop: 10,
+    marginLeft: 25,
+}
+
+
 });
