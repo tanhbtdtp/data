@@ -1,16 +1,33 @@
 import * as React from 'react';
-import { Text, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import { Text, View,StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { FontAwesome } from "@expo/vector-icons";
 import Ionicons from '@expo/vector-icons/Ionicons';
+
 
 import ProfileDetail from './ProfileDetails';
 
 function HomeScreen() {
   return (
+    <View style={{flex:1}}>
+      <ProfileDetail/>
+    </View>
+  );
+}
+
+function HomeScreen1() {
+  return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Home!</Text>
+      <Text>Home1!</Text>
+      <FontAwesome name="home" color={'black'} size={30}/> 
+    </View>
+  );
+}
+
+function HomeScreen2() {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Home2!</Text>
       <FontAwesome name="home" color={'black'} size={30}/> 
     </View>
   );
@@ -26,31 +43,52 @@ function SettingsScreen() {
 
 const Tab = createBottomTabNavigator();
 export default function Home() {
-    return (
-      
+    return (      
         <Tab.Navigator
           screenOptions={({ route }) => ({
-            headerShown:false,
+            headerShown:false,            
             tabBarIcon: ({ focused, color, size }) => {
-              let iconName;  
+              let iconName;                
               if (route.name === 'Trang chủ') {
                 iconName = focused
                   ? 'home'
                   : 'home';
+              } else if (route.name === 'HomeScreen1') {
+                iconName = focused ? 'information-circle' : 'information-circle';
+              } else if (route.name === 'HomeScreen2') {
+                iconName = focused ? 'settings' : 'settings';
               } else if (route.name === 'Cá nhân') {
-                iconName = focused ? 'user' : 'user';
-              }  
+                iconName = focused ? 'person' : 'person';
+              }    
+              
+
               // You can return any component that you like here!
-              return <FontAwesome name={iconName} size={size} color={color} />;
+              return <Ionicons name={iconName} size={30} color={color} />;
             },
             tabBarActiveTintColor: 'tomato',
-            tabBarInactiveTintColor: 'gray',            
+            tabBarInactiveTintColor: 'gray', 
+            tabBarShowLabel:false,  
+            tabBarStyle: [styles.tabBarStyle]
           })}
         >
           <Tab.Screen name="Trang chủ" component={HomeScreen} />
+          <Tab.Screen name="HomeScreen1" component={HomeScreen1} />
+          <Tab.Screen name="HomeScreen2" component={HomeScreen2} />
           <Tab.Screen name="Cá nhân" component={SettingsScreen} />
         </Tab.Navigator>
     
     );
   }
   
+
+  const styles = StyleSheet.create({
+    tabBarStyle: {      
+      backgroundColor: "#fff",  
+      position:'absolute',      
+      left:10,   
+      right:10,
+      bottom:10,
+      height:80,
+      borderRadius:20
+    },
+  })
