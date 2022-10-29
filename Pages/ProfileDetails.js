@@ -7,12 +7,11 @@ import {
   TouchableOpacity,
   View,
   Image,
-  FlatList,
-  ActivityIndicator,
-  SectionList,
+  FlatList, 
 } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import App_Color from "../Themes/Color";
+
 import APIs from "../Services/APIs";
 
 

@@ -6,6 +6,8 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 
 
 import ProfileDetail from './ProfileDetails';
+import Profile from './Profile';
+import App_Color from '../Themes/Color';
 
 function HomeScreen() {
   return (
@@ -17,9 +19,8 @@ function HomeScreen() {
 
 function HomeScreen1() {
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Home1!</Text>
-      <FontAwesome name="home" color={'black'} size={30}/> 
+    <View style={{ flex: 1}}>
+      <Profile/>
     </View>
   );
 }
@@ -33,10 +34,10 @@ function HomeScreen2() {
   );
 }
 
-function SettingsScreen() {
+function PersonScreen() {
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Settings!</Text>
+    <View style={{ flex: 1}}>
+      <ProfileDetail/>
     </View>
   );
 }
@@ -65,8 +66,8 @@ export default function Home() {
               // You can return any component that you like here!
               return <Ionicons name={iconName} size={30} color={color} />;
             },
-            tabBarActiveTintColor: 'tomato',
-            tabBarInactiveTintColor: 'gray', 
+            tabBarActiveTintColor: App_Color.MauTrang,
+            tabBarInactiveTintColor: App_Color.MauToi, 
             tabBarShowLabel:false,  
             tabBarStyle: [styles.tabBarStyle]
           })}
@@ -74,21 +75,20 @@ export default function Home() {
           <Tab.Screen name="Trang chủ" component={HomeScreen} />
           <Tab.Screen name="HomeScreen1" component={HomeScreen1} />
           <Tab.Screen name="HomeScreen2" component={HomeScreen2} />
-          <Tab.Screen name="Cá nhân" component={SettingsScreen} />
+          <Tab.Screen name="Cá nhân" component={PersonScreen} />
         </Tab.Navigator>
     
     );
-  }
-  
+  }  
 
   const styles = StyleSheet.create({
     tabBarStyle: {      
-      backgroundColor: "#fff",  
+      backgroundColor: App_Color.MauNen,  
       position:'absolute',      
       left:10,   
       right:10,
       bottom:10,
-      height:80,
+      height:70,
       borderRadius:20
     },
   })
