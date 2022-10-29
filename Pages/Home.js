@@ -7,6 +7,9 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 
 import ProfileDetail from './ProfileDetails';
 import Profile from './Profile';
+import Personal from './Personal';
+
+
 import App_Color from '../Themes/Color';
 
 function HomeScreen() {
@@ -37,7 +40,7 @@ function HomeScreen2() {
 function PersonScreen() {
   return (
     <View style={{ flex: 1}}>
-      <ProfileDetail/>
+      <Personal/>
     </View>
   );
 }
@@ -56,9 +59,11 @@ export default function Home() {
                   : 'home';
               } else if (route.name === 'HomeScreen1') {
                 iconName = focused ? 'information-circle' : 'information-circle';
+                
               } else if (route.name === 'HomeScreen2') {
                 iconName = focused ? 'settings' : 'settings';
-              } else if (route.name === 'Cá nhân') {
+
+              } else if (route.name === 'Personal') {
                 iconName = focused ? 'person' : 'person';
               }    
               
@@ -75,7 +80,7 @@ export default function Home() {
           <Tab.Screen name="Trang chủ" component={HomeScreen} />
           <Tab.Screen name="HomeScreen1" component={HomeScreen1} />
           <Tab.Screen name="HomeScreen2" component={HomeScreen2} />
-          <Tab.Screen name="Cá nhân" component={PersonScreen} />
+          <Tab.Screen name="Personal" component={PersonScreen} />
         </Tab.Navigator>
     
     );
