@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text, View,StyleSheet } from 'react-native';
+import { Text, View,StyleSheet, ScrollView } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { FontAwesome } from "@expo/vector-icons";
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -8,16 +8,15 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import ProfileDetail from './ProfileDetails';
 import Profile from './Profile';
 import Personal from './Personal';
-
+import Products from './Products';
 
 import App_Color from '../Themes/Color';
 
 function HomeScreen() {
-  return (
-    <View style={{flex:1}}>
-      <ProfileDetail/>
-    </View>
-  );
+  return (         
+
+          <ProfileDetail/>                   
+          );
 }
 
 function HomeScreen1() {
@@ -28,11 +27,10 @@ function HomeScreen1() {
   );
 }
 
-function HomeScreen2() {
+function SanPham() {
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Home2!</Text>
-      <FontAwesome name="home" color={'black'} size={30}/> 
+    <View style={{ flex: 1}}>
+      <Products/>
     </View>
   );
 }
@@ -60,7 +58,7 @@ export default function Home() {
               } else if (route.name === 'HomeScreen1') {
                 iconName = focused ? 'information-circle' : 'information-circle';
                 
-              } else if (route.name === 'HomeScreen2') {
+              } else if (route.name === 'SanPham') {
                 iconName = focused ? 'settings' : 'settings';
 
               } else if (route.name === 'Personal') {
@@ -79,7 +77,7 @@ export default function Home() {
         >
           <Tab.Screen name="Trang chủ" component={HomeScreen} />
           <Tab.Screen name="HomeScreen1" component={HomeScreen1} />
-          <Tab.Screen name="HomeScreen2" component={HomeScreen2} />
+          <Tab.Screen name="SanPham" component={SanPham} />
           <Tab.Screen name="Personal" component={PersonScreen} />
         </Tab.Navigator>
     

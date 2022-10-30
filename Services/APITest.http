@@ -4,4 +4,4 @@ GET https://script.google.com/macros/s/AKfycbwOnPeGXIUEpHiilWekOKvX1DhDGZBiWB5cV
 
 ###
 
-GET https://script.google.com/macros/s/AKfycbwOnPeGXIUEpHiilWekOKvX1DhDGZBiWB5cVzjTSsGj2nDKHI__jBNg7Kdb0V6kTitf/exec?action=getUsers&top=20&username=
+GET https://script.google.com/macros/s/AKfycbwOnPeGXIUEpHiilWekOKvX1DhDGZBiWB5cVzjTSsGj2nDKHI__jBNg7Kdb0V6kTitf/exec?action=getLogin&username=nhutqt.dtp&password=512345

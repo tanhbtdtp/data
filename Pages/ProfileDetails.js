@@ -7,22 +7,40 @@ import {
   TouchableOpacity,
   View,
   Image,
-  FlatList, 
+  FlatList,
+  ScrollView, 
 } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import App_Color from "../Themes/Color";
-
 import APIs from "../Services/APIs";
 
 
+const Main = ()=>{
+  return(
+       <>
+      <Header/>      
+      <Banner/>
+      <BSC/>
+      <KPI/>  
+      <View style={{height:100}}></View> 
+       </>
+    )      
+}
+
 export default function ProfileDetail() {
+  const DATA =[1];
   return (
     <View style={styles.container}>
-      <StatusBar style="light" />
-      <Header />
-      <Banner />
-      <BSC />
-      <KPI />
+      <StatusBar style="light" />                       
+      <FlatList      
+        style={{ marginHorizontal: 10,flex:1,width:'100%'}}
+        data={DATA}
+        keyExtractor={(item, index) => item + index}        
+        renderItem={({ item,index }) => {
+          return (            
+            <Main/>
+          )}}
+        />    
     </View>
   );
 }
@@ -118,7 +136,7 @@ const BSC = () => {
         horizontal={true}
         style={{ marginHorizontal: 10 }}
         data={DATA}
-        keyExtractor={(item, index) => item + index}
+        keyExtractor={(item, index) => item + index}        
         renderItem={({ item }) => {
           return (
             <TouchableOpacity>
@@ -220,8 +238,8 @@ const KPI = () => {
       </Text>
       <FlatList
         style={{ marginHorizontal: 20, marginVertical: 10 }}
-        data={DATA}
-        keyExtractor={(item, index) => item + index}
+        data={DATA}        
+        keyExtractor={(item, index) => item + index}          
         renderItem={({ item }) => {
           return (
             <TouchableOpacity>
