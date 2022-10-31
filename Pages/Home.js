@@ -13,11 +13,10 @@ import Products from './Products';
 import App_Color from '../Themes/Color';
 
 function HomeScreen() {
-  return (         
-
-          <ProfileDetail/>                   
-          );
-}
+  return (       
+            <ProfileDetail/>                   
+         );
+        }
 
 function HomeScreen1() {
   return (

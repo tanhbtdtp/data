@@ -22,10 +22,46 @@ const products_data = [
 {
     id: '1',
     name: "VD149",
+    coin: "149.000",
     img : "https://ttkddongthap.net/tainguyen/images/img/products/vd149.jpg",
     mota :"Gói cước cho gia đình",
     link :""
+},
+{
+  id: '2',
+  name: "SCLUB",
+  coin: "70.000",
+  img : "https://shop.vnpt.vn/uploads/package/20220830090832/images/sclub-368x250-1-1661825312.jpg",
+  mota :"Gói cước cho gia đình",
+  link :""
+},
+{
+  id: '3',
+  name: "THAGA",
+  coin: "149.000",
+  img : "https://shop.vnpt.vn/uploads/package/20220831111052/images/thaga70_368x250-1661962252.jpg",
+  mota :"Gói cước cho gia đình",
+  link :""
+},
+{
+  id: '4',
+  name: "HOME FIM",
+  coin: "1.434.000đ/6 tháng",
+  img : "https://shop.vnpt.vn/uploads/package/20220613041221/images/home-fim-1655111541.png",
+  mota :"Gói cước cho gia đình",
+  link :""
+},
+
+{
+  id: '4',
+  name: "Shopee SP50",
+  coin: "1.434.000đ/6 tháng",
+  img : "https://shop.vnpt.vn/uploads/package/20220716030930/images/1000x1000-03-1657958970.jpg",
+  mota :"Gói cước cho gia đình",
+  link :""
 }
+
+
 ]
 
 
@@ -87,57 +123,29 @@ const Header = () => {
 const ProductDetails = ()=>{
 return( 
 <View style={styles.productDetails}>
+  <Text style={styles.itemDanhMuc} >Danh mục sản phẩm</Text>
   <ScrollView style={{width:"95%",marginLeft:20,marginTop:20,marginBottom:20}}>
-         <View style={styles.itemProducts}>
-            <Text style={styles.itemTitle} >VD149</Text>
-            <Text style={styles.itemGia} >149.000 đồng</Text>
-            <Image
-                resizeMode="stretch"
-                style={styles.imgProduct}
-                source={{
-                  uri: 'https://ttkddongthap.net/tainguyen/images/img/products/vd149.jpg',
-                }}
-              /> 
-              <Text style={styles.uudaigoicuoc}>Ưu đãi gói cước</Text>
-              <Text style={styles.uudaithamkhao}> Chi tiết tham khảo tại :</Text>
-              <Text style={styles.uudailink}> https://shop.vnpt.vn</Text>              
 
-        </View>    
-
-        <View style={styles.itemProducts}>
-            <Text style={styles.itemTitle} >FCLUB</Text>
-            <Text style={styles.itemGia} >149.000 đồng</Text>
-            <Image
-                resizeMode="stretch"
-                style={styles.imgProduct}
-                source={{
-                  uri: 'https://shop.vnpt.vn/uploads/package/20220830090832/images/sclub-368x250-1-1661825312.jpg',
-                }}
-              /> 
-              <Text style={styles.uudaigoicuoc}>Ưu đãi gói cước</Text>
-              <Text style={styles.uudaithamkhao}> Chi tiết tham khảo tại :</Text>
-              <Text style={styles.uudailink}> https://shop.vnpt.vn</Text>              
-        </View>               
-
-
-        <View style={styles.itemProducts}>
-            <Text style={styles.itemTitle} >THAGA</Text>
-            <Text style={styles.itemGia} >70.000 đồng</Text>
-            <Image
-                resizeMode="stretch"
-                style={styles.imgProduct}
-                source={{
-                  uri: 'https://shop.vnpt.vn/uploads/package/20220831111052/images/thaga70_368x250-1661962252.jpg',
-                }}
-              /> 
-              <Text style={styles.uudaigoicuoc}>Ưu đãi gói cước</Text>
-              <Text style={styles.uudaithamkhao}> Chi tiết tham khảo tại :</Text>
-              <Text style={styles.uudailink}> https://shop.vnpt.vn</Text>              
-        </View>               
-
-        <View style={{height:100}}></View>
-
-        
+        {products_data.map((row,index)=>{          
+          return(
+          <View style={styles.itemProducts}>
+          <Text style={styles.itemTitle} >{row.name}</Text>
+          <Text style={styles.itemGia} >{row.coin} đồng</Text>
+          <Image             
+              resizeMode="stretch"
+              style={styles.imgProduct}
+              source={{
+                uri: row.img,
+              }}
+            /> 
+            <Text style={styles.uudaigoicuoc}>Ưu đãi gói cước</Text>
+            <Text style={styles.uudaithamkhao}> Chi tiết tham khảo tại :</Text>
+            <Text style={styles.uudailink}> https://shop.vnpt.vn</Text>
+         </View>    
+          )
+        })}    
+       
+        <View style={{height:100}}></View>        
         </ScrollView>
 </View>
 )
@@ -148,14 +156,13 @@ constainer:{
         width:"100%",
         alignItems:"center",
         
- },  
+},  
 
  productDetails:{
         flex:1,
         width:"100%",
-        backgroundColor:App_Color.MauNen_Dark,        
-        alignItems:"center"
-    },  
+        backgroundColor:App_Color.MauNen_Dark,                
+},  
 
 itemProducts:{
    height :400,
@@ -164,11 +171,20 @@ itemProducts:{
    marginTop:10,
    borderRadius:20,   
 }  ,
+
+itemDanhMuc:{
+  fontSize:15,
+  fontWeight:'600',
+  marginTop:15, 
+  marginLeft :25,
+  fontWeight:"bold" 
+},
+
 itemTitle:{
     fontSize:25,
     fontWeight:'600',
     marginTop:10,
-    marginLeft:15
+    marginLeft:15,    
 },
 
 itemGia:{
@@ -183,23 +199,23 @@ imgProduct:{
     height:200,
     width:'95%',
     marginTop:20,
-    alignSelf:"center"
-} ,
+    alignSelf:"center", 
+    borderRadius :15   
+},
+
 uudaigoicuoc:{
   fontWeight : 'bold',
   marginHorizontal:15,
   marginVertical:10
 },
+
 uudaithamkhao:{  
   marginHorizontal:16,      
 },
+
 uudailink:{  
   marginHorizontal:16,      
   fontWeight:'500',
-  color:'green'
-  
-}
-
-
-    
+  color:'green'  
+}    
 })

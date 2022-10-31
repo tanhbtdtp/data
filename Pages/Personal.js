@@ -10,6 +10,7 @@ import {
   FlatList,
   ActivityIndicator,
   SectionList,
+  ScrollView,
 } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import App_Color from "../Themes/Color";
@@ -20,8 +21,11 @@ export default function Personal() {
     <View style={styles.container}>
       <StatusBar style="light" />
       <Header />
+      <ScrollView style={{flex:1,width:"100%",marginLeft:20,marginTop:10}}>
       <Mota/>
       <Chitiet/>
+      <View style={{height:100}} />
+      </ScrollView>
     </View>
   );
 }
